@@ -7,8 +7,8 @@
 ## TL;DR;
 
 ```console
-helm repo add runix https://helm.runix.net
-helm install runix/pgadmin4
+helm repo add pgadmin4 https://Sisu-Tech.github.io/helm-pgadmin4/
+helm install sisu-tech/pgadmin4
 ```
 
 ## Introduction
@@ -21,9 +21,9 @@ To install the chart with the release name `my-release`:
 
 ```console
 $ # Helm 2
-helm install --name my-release runix/pgadmin4
+helm install --name my-release sisu-tech/pgadmin4
 $ # Helm 3
-helm install my-release runix/pgadmin4
+helm install my-release sisu-tech/pgadmin4
 ```
 
 The command deploys pgAdmin4 on the Kubernetes cluster in the default configuration. The configuration section lists the parameters that can be configured during installation.
