@@ -5,20 +5,23 @@ metadata:
   name: {{ $fullName }}
   namespace: {{ include "pgadmin.namespaceName" . }}
   labels:
-  {{- if .Values.labels }}
-    {{- .Values.labels | toYaml | nindent 4 }}
-  {{- end }}
     {{- include "pgadmin.labels" . | nindent 4 }}
+    {{- with .Values.labels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
 {{- if .Values.annotations }}
   annotations:
-  {{- if .Values.annotations }}
-    {{- .Values.annotations | toYaml | nindent 4 }}
+  {{- with .Values.annotations }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
 {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
+      {{- with .Values.matchLabels }}
+        {{- toYaml . | nindent 6 }}
+      {{- end }}
       {{- include "pgadmin.selectorLabels" . | nindent 6 }}
 {{- if .Values.strategy }}
   strategy:
@@ -27,6 +30,9 @@ spec:
   template:
     metadata:
       labels:
+        {{- with .Values.matchLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
         app.kubernetes.io/name: {{ include "pgadmin.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         {{- with .Values.podLabels }}
